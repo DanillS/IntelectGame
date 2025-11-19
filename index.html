@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Интеллектуальная игра-викторина для подростков"
+    />
+    <title>Brain Quest - Интеллектуальная игра</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Главное меню -->
+      <div id="mainMenu" class="screen active">
+        <div class="menu-content">
+          <h1 class="game-title">
+            <span class="title-word">Brain</span>
+            <span class="title-word">Quest</span>
+          </h1>
+          <p class="game-subtitle">Проверь свой интеллект!</p>
+          <div class="menu-buttons">
+            <button class="btn btn-primary" id="startBtn">
+              <span>Начать игру</span>
+            </button>
+            <button class="btn btn-secondary" id="rulesBtn">
+              <span>Правила</span>
+            </button>
+            <button class="btn btn-secondary" id="statsBtn">
+              <span>Статистика</span>
+            </button>
+          </div>
+          <div class="particles"></div>
+        </div>
+      </div>
+
+      <!-- Экран правил -->
+      <div id="rulesScreen" class="screen">
+        <div class="rules-content">
+          <h2>Правила игры</h2>
+          <div class="rules-list">
+            <div class="rule-item">
+              <span class="rule-icon">🎯</span>
+              <p>Отвечай на вопросы разных категорий</p>
+            </div>
+            <div class="rule-item">
+              <span class="rule-icon">⏱️</span>
+              <p>У тебя есть 30 секунд на каждый вопрос</p>
+            </div>
+            <div class="rule-item">
+              <span class="rule-icon">⭐</span>
+              <p>Зарабатывай очки за правильные ответы</p>
+            </div>
+            <div class="rule-item">
+              <span class="rule-icon">🏆</span>
+              <p>Открывай новые уровни и достижения</p>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="backFromRulesBtn">Назад</button>
+        </div>
+      </div>
+
+      <!-- Экран статистики -->
+      <div id="statsScreen" class="screen">
+        <div class="stats-content">
+          <h2>Твоя статистика</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">🎮</div>
+              <div class="stat-value" id="gamesPlayed">0</div>
+              <div class="stat-label">Игр сыграно</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">⭐</div>
+              <div class="stat-value" id="totalScore">0</div>
+              <div class="stat-label">Всего очков</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🏆</div>
+              <div class="stat-value" id="bestScore">0</div>
+              <div class="stat-label">Лучший результат</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">📊</div>
+              <div class="stat-value" id="correctAnswers">0%</div>
+              <div class="stat-label">Точность</div>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="backFromStatsBtn">Назад</button>
+        </div>
+      </div>
+
+      <!-- Игровой экран -->
+      <div id="gameScreen" class="screen">
+        <div class="game-header">
+          <div class="score-display">
+            <span class="score-label">Очки:</span>
+            <span class="score-value" id="currentScore">0</span>
+          </div>
+          <div class="level-display">
+            <span class="level-label">Уровень:</span>
+            <span class="level-value" id="currentLevel">1</span>
+          </div>
+          <div class="timer-display">
+            <div class="timer-circle">
+              <svg class="timer-svg">
+                <circle class="timer-bg" cx="25" cy="25" r="20"></circle>
+                <circle
+                  class="timer-progress"
+                  cx="25"
+                  cy="25"
+                  r="20"
+                  id="timerCircle"
+                ></circle>
+              </svg>
+              <span class="timer-text" id="timerText">30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-content">
+          <div class="question-container">
+            <div class="category-badge" id="categoryBadge">Наука</div>
+            <div class="question-number">
+              Вопрос <span id="questionNumber">1</span> из
+              <span id="totalQuestions">10</span>
+            </div>
+            <h2 class="question-text" id="questionText">Загрузка вопроса...</h2>
+          </div>
+
+          <div class="answers-container" id="answersContainer">
+            <!-- Ответы будут добавлены динамически -->
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Экран результатов -->
+      <div id="resultsScreen" class="screen">
+        <div class="results-content">
+          <div class="results-animation">
+            <div class="trophy-icon">🏆</div>
+          </div>
+          <h2 class="results-title">Игра завершена!</h2>
+          <div class="results-stats">
+            <div class="result-item">
+              <span class="result-label">Набрано очков:</span>
+              <span class="result-value" id="finalScore">0</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">Правильных ответов:</span>
+              <span class="result-value" id="finalCorrect">0</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">Точность:</span>
+              <span class="result-value" id="finalAccuracy">0%</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">Достигнут уровень:</span>
+              <span class="result-value" id="finalLevel">1</span>
+            </div>
+          </div>
+          <div class="achievements-list" id="achievementsList"></div>
+          <div class="results-buttons">
+            <button class="btn btn-primary" id="playAgainBtn">
+              Играть снова
+            </button>
+            <button class="btn btn-secondary" id="backToMenuBtn">В меню</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Уведомления -->
+      <div class="notification" id="notification">
+        <span id="notificationText"></span>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
